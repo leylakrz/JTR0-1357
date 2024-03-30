@@ -14,15 +14,11 @@ from settings import settings
 
 async def authenticate(token: str = Header(None), db: AsyncSession = Depends(get_db)):
     try:
-        return await validate_jwt(token, db)
+        payload = jwt_decode(token)
+        check_token_expiration(payload['exp'])
+        return await get_user_by_id(payload['uid'], db)
     except AuthenticationFailed:
         raise HTTPException(status_code=403)
-
-
-async def validate_jwt(token: str, db: AsyncSession) -> User:
-    payload = jwt_decode(token)
-    check_token_expiration(payload['exp'])
-    return await get_user_by_id(payload['uid'], db)
 
 
 def jwt_decode(token: str) -> dict:
