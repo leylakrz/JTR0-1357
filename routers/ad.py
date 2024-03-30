@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
-from logics.ad import ad_create, ad_list
+from logics.ad import ad_create, ad_list, ad_retrieve
 from logics.authentication.authentication import authenticate
 from resources.postgres.get_postgres_session import get_postgres_async_session as get_db
 from schemas.ad import AdCreateSchema, AdDetailSchema, AdListSchema
@@ -21,4 +21,7 @@ async def list_ads(db=Depends(get_db)):
 
 @ad_router.get("/{ad_id}")
 async def retrieve_ad(ad_id: int, db=Depends(get_db)):
-    pass
+    result = await ad_retrieve(ad_id, db)
+    if result:
+        return result
+    raise HTTPException(status_code=404)
