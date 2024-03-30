@@ -7,7 +7,7 @@ from logics.utils import camel_to_snake
 Base = declarative_base()
 
 
-class BaseModel(Base):
+class BaseDBModel(Base):
     @declared_attr
     def __tablename__(cls):
         return camel_to_snake(cls.__name__)

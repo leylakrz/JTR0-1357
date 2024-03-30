@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String
 
-from models.base import BaseModel
+from models.base import BaseDBModel
 
 
-class User(BaseModel):
+class User(BaseDBModel):
     email = Column(String(50), unique=True, nullable=False)
     password = Column(String(50), nullable=False)
