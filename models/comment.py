@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text, Integer, ForeignKey
+from sqlalchemy import Column, Text, Integer, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from models.base import BaseDBModel
@@ -11,3 +11,7 @@ class Comment(BaseDBModel):
 
     creator = relationship("User", back_populates="comments")
     ad = relationship("Ad", back_populates="comments")
+
+    __table_args__ = (
+        UniqueConstraint('creator_id', 'ad_id', name='uq_creator_ad'),
+    )
