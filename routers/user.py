@@ -12,7 +12,7 @@ user_router = APIRouter(tags=["user"])
 async def register(body: UserLoginSchema, db=Depends(get_db)):
     if await user_register(body, db):
         return JSONResponse(status_code=200, content={"message": "Registered successfully."})
-    return JSONResponse(status_code=400, content={"error": "Email exists."})
+    return JSONResponse(status_code=400, content={"detail": "Email exists."})
 
 
 @user_router.post("/login")
@@ -20,4 +20,4 @@ async def login(body: UserLoginSchema, db=Depends(get_db)):
     token = await user_login(body, db)
     if token:
         return JSONResponse(status_code=200, content=token)
-    return JSONResponse(status_code=400, content={"error": "Wrong email or Password."})
+    return JSONResponse(status_code=400, content={"detail": "Wrong email or Password."})
