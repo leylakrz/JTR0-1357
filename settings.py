@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_URL: str = ""
     POSTGRES_ASYNC_URL: str = ""
+    # Authentication
+    ACCESS_TOKEN_EXP: dict = {"days": 1}
+    SECRET_KEY: str
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
