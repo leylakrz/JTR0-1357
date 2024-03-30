@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, load_only
 from sqlmodel import select
@@ -25,7 +27,7 @@ async def ad_list(db: AsyncSession) -> list[Ad]:
     return result.scalars().all()
 
 
-async def ad_retrieve(ad_id: int, db: AsyncSession) -> Ad:
+async def ad_retrieve(ad_id: int, db: AsyncSession) -> Optional[Ad]:
     query = select(Ad) \
         .options(
         load_only(Ad.title, Ad.description),
