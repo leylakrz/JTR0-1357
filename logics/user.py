@@ -4,7 +4,8 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from logics.utils import hash_password, generate_access_token
+from logics.authentication.token import generate_access_token
+from logics.utils import hash_password
 from models import User
 from schemas.user import UserLoginSchema
 
@@ -29,8 +30,14 @@ async def user_login(user_info: UserLoginSchema, db: AsyncSession) -> Optional[d
     # retrieve user from db
     query = select(User).filter(User.email == user_info.email, User.password == hashed_password)
     result = await db.execute(query)
-    user = result.scalars().first()
+    user = result.scalar()
     if not user:
         return
     # generate token
     return {"access_token": generate_access_token(user.id)}
+
+
+async def get_user_by_id(user_id: int, db: AsyncSession) -> Optional[User]:
+    query = select(User).filter(User.id == user_id)
+    result = await db.execute(query)
+    return result.scalar()
