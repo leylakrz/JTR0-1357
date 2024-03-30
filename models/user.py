@@ -8,4 +8,5 @@ class User(BaseDBModel):
     email = Column(String(50), unique=True, nullable=False)
     password = Column(String(64), nullable=False)
 
-    ads = relationship("Ad", )
+    ads = relationship("Ad")
+    comments = relationship("Comment")

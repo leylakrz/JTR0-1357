@@ -10,3 +10,4 @@ class Ad(BaseDBModel):
     creator_id = Column(Integer, ForeignKey("user.id"), nullable=False)
 
     creator = relationship("User", back_populates="ads")
+    comments = relationship("Comment")
