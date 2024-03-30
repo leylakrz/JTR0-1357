@@ -18,10 +18,11 @@ async def user_register(user_info: UserLoginSchema, db: AsyncSession) -> bool:
     db.add(new_user)
     try:
         await db.commit()
-        return True
     except IntegrityError:  # email is not unique
         await db.rollback()
         return False
+    else:
+        return True
 
 
 async def user_login(user_info: UserLoginSchema, db: AsyncSession) -> Optional[dict]:
