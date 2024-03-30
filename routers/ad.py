@@ -15,7 +15,8 @@ async def create_ad(body: AdCreateSchema, db=Depends(get_db), user=Depends(authe
 
 @ad_router.get("", response_model=AdListSchema)
 async def list_ads(db=Depends(get_db)):
-    return await ad_list(db)
+    result = await ad_list(db)
+    return {"data": result}
 
 
 @ad_router.get("/{ad_id}")
