@@ -7,7 +7,7 @@ from models import User, Ad, Comment
 from schemas.comment import CommentCreateSchema
 
 
-async def comment_create(comment_info: CommentCreateSchema, user: User, db: AsyncSession) -> Optional[Ad]:
+async def comment_create(comment_info: CommentCreateSchema, user: User, db: AsyncSession) -> Optional[Comment]:
     new_obj = Comment(**comment_info.dict(), creator=user)
     db.add(new_obj)
     try:

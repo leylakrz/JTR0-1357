@@ -13,7 +13,7 @@ async def ad_create(ad_info: AdCreateSchema, user: User, db: AsyncSession) -> Ad
     return new_obj
 
 
-async def ad_list(db: AsyncSession) -> AdListSchema:
+async def ad_list(db: AsyncSession) -> list[Ad]:
     query = (
         select(Ad)
         .options(
@@ -25,7 +25,7 @@ async def ad_list(db: AsyncSession) -> AdListSchema:
     return result.scalars().all()
 
 
-async def ad_retrieve(ad_id: int, db: AsyncSession):
+async def ad_retrieve(ad_id: int, db: AsyncSession) -> Ad:
     query = select(Ad) \
         .options(
         load_only(Ad.title, Ad.description),
