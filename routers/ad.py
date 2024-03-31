@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from logics.ad import ad_create, ad_list, ad_retrieve
 from logics.authentication.authentication import authenticate
-from resources.postgres.get_postgres_session import get_postgres_async_session as get_db
+from resources.postgres.session import get_postgres_async_session as get_db
 from schemas.ad import AdCreateSchema, AdDetailSchema, AdListSchema
 
 ad_router = APIRouter(tags=["ad"], prefix="/ad")

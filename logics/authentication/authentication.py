@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from exceptions import AuthenticationFailed
 from logics.user import get_user_by_id
 from models import User
-from resources.postgres.get_postgres_session import get_postgres_async_session as get_db
+from resources.postgres.session import get_postgres_async_session as get_db
 from settings import settings
 
 

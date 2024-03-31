@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import declared_attr
+from sqlalchemy.orm import declarative_base, declared_attr
 
 from logics.utils import camel_to_snake
 

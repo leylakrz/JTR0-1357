@@ -3,7 +3,7 @@ from starlette.responses import JSONResponse
 
 from logics.authentication.authentication import authenticate
 from logics.comment import comment_create
-from resources.postgres.get_postgres_session import get_postgres_async_session as get_db
+from resources.postgres.session import get_postgres_async_session as get_db
 from schemas.comment import CommentCreateSchema, CommentDetailSchema
 
 comment_router = APIRouter(tags=["comment"], prefix="/comment")

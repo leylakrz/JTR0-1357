@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from starlette.responses import JSONResponse
 
 from logics.user import user_register, user_login
-from resources.postgres.get_postgres_session import get_postgres_async_session as get_db
+from resources.postgres.session import get_postgres_async_session as get_db
 from schemas.user import UserLoginSchema
 
 user_router = APIRouter(tags=["user"])
