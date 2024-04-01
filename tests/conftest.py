@@ -42,3 +42,13 @@ def ad_info(client, user_token) -> dict:
     }
     response = client.post("/api/ad", json=ad, headers={"authorization": user_token})
     return response.json()
+
+
+@pytest.fixture(scope="session")
+def ad_info_2(client, user_token) -> dict:
+    ad = {
+        "email": "test ad 2",
+        "password": "ad for testing"
+    }
+    response = client.post("/api/ad", json=ad, headers={"authorization": user_token})
+    return response.json()
