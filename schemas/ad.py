@@ -1,7 +1,8 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, constr
 
+from schemas.comment import CommentDetailSchema
 from schemas.user import CreatorSchema
 
 
@@ -20,6 +21,11 @@ class AdListSchema(BaseModel):
     data: List[AdDetailSchema]
 
 
-class AdRetrieveSchema(AdDetailSchema, AdCreateSchema):
-    pass
-    # comments = List
+class AdRetrieveSchema(AdDetailSchema):
+    description: str
+    comments: List[CommentDetailSchema] = []
+
+
+class AdUpdateSchema(BaseModel):
+    title: Optional[constr(max_length=100)] = None
+    description: Optional[str] = None
