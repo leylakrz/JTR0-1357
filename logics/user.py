@@ -3,6 +3,7 @@ from typing import Optional
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import load_only
 
 from logics.authentication.token import generate_access_token
 from logics.utils import hash_password
@@ -39,6 +40,8 @@ async def user_login(user_info: UserLoginSchema, db: AsyncSession) -> Optional[d
 
 
 async def get_user_by_id(user_id: int, db: AsyncSession) -> Optional[User]:
-    query = select(User).filter(User.id == user_id)
+    query = select(User) \
+        .filter(User.id == user_id) \
+        .options(load_only(User.id, User.email))
     result = await db.execute(query)
     return result.scalar()
